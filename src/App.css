@@ -1,38 +1,61 @@
+:root {
+  --color1: #F5C1E2;
+  --color2: #C59AD6;
+  --color3: #A994EB;
+  --color4: #8B9DD6;
+  --color5: #CDEDFA;
+}
+
 .App {
+  position: relative;
   text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  transition: 1s;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav {
+  width: 80px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color1);
+  color:var(--color3);
+}
+.nav div{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.nav-breadcrumbs {
+  position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: var(--color5);
+  cursor: pointer;
+  font-size: 16px;
+  transition: 1s;
 }
-
-.App-link {
-  color: #61dafb;
+.nav-breadcrumbs--active {
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.content {
+  position: relative;
+  flex: 1;
+  transition: 1s;
+  overflow: hidden;
+}
+.section {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

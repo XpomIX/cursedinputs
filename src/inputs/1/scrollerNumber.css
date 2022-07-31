@@ -1,0 +1,23 @@
+.scroller-number-container {
+  position: relative;
+  width: 30px;
+  height: 40px;
+  border: 1px solid grey;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.scroller-number {
+  width: 28px;
+  height: 38px;
+  transition: 0.25s;
+  margin-top: -40px;
+  transition: 0s;
+}
+.scroller-number__cell {
+  width: 28px;
+  height: 38px;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
