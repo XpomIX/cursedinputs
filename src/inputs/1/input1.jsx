@@ -1,30 +1,37 @@
-import { useEffect, useState } from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import './input1.css';
 import ScrollerNumber from './scrollerNumber';
 
 const Input1 = ({active}) => {
   const [activeCell, setActiveCell] = useState(0);
-  const [numbers, setNumbers] = useState([0,0,0,0,0,0,0,0,0,0]);
-  const [cooldown, toggleCooldown] = useState(false);
-  useEffect(() => {
-    if(!cooldown && active) {
-      toggleCooldown(true);
-      setTimeout(() => {toggleCooldown(false)}, 500);
-      setNextNumber(activeCell);
-    }
-  }, [cooldown, active])
+  const [numbers, setNumbers] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
-  const setNextNumber = (index) => {
+  const setNextNumber = useCallback((index) => {
     const newNumber = numbers[index] < 9 ? numbers[index] + 1 : 0;
-    setNumbers([...numbers.slice(0, index), newNumber, ...numbers.slice(index+1)]);
-  }
-  const selectNextNumber = () => {
-    setActiveCell(activeCell < 9 ? activeCell+1 : 0);
-  }
-  const calculateHighlightMargin = () => {
-    let margin = activeCell * 30 + ((activeCell > 2) + (activeCell > 5) + (activeCell > 7))*40;
-    return margin
-  }
+    setNumbers([...numbers.slice(0, index), newNumber, ...numbers.slice(index + 1)]);
+  }, [numbers]);
+
+  useEffect(() => {
+    if (active) {
+      const interval = setInterval(() => {
+        setNextNumber(activeCell);
+      }, 500);
+      return () => {
+        if (interval) {
+          clearInterval(interval);
+        }
+      }
+    }
+
+  }, [active, setNextNumber, activeCell])
+
+  const selectNextNumber = useCallback(() => {
+    setActiveCell(activeCell < 9 ? activeCell + 1 : 0);
+  }, [activeCell]);
+
+  const calculateHighlightMargin = useMemo(() => (
+    activeCell * 30 + ((activeCell > 2) + (activeCell > 5) + (activeCell > 7)) * 40
+  ), [activeCell]);
 
   return (
     <div className='input1'>
@@ -34,7 +41,7 @@ const Input1 = ({active}) => {
         </div>
         <div className='input1__margin'></div>
         <div className='input1-phonenumber'>
-          <div className='input1__highlight' style={{left: `${calculateHighlightMargin()}px`}}/>
+          <div className='input1__highlight' style={{left: `${calculateHighlightMargin}px`}}/>
           <ScrollerNumber number={numbers[0]}/>
           <ScrollerNumber number={numbers[1]}/>
           <ScrollerNumber number={numbers[2]}/>
@@ -49,8 +56,10 @@ const Input1 = ({active}) => {
           <ScrollerNumber number={numbers[8]}/>
           <ScrollerNumber number={numbers[9]}/>
         </div>
-        </div>
-      <div className='input1__stop-btn' onClick={() => {selectNextNumber()}}>Остановить</div>
+      </div>
+      <div className='input1__stop-btn' onClick={selectNextNumber}>
+        Остановить
+      </div>
     </div>
   )
 }

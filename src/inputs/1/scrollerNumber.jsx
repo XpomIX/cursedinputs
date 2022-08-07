@@ -20,16 +20,12 @@ const ScrollerNumber = ({number}) => {
     return isAnim ? prevNumber(number) : number
   }, [isAnim])
 
-
-  const renderNumbers = () => (
-    <div className='scroller-number' style={isAnim ? animStyles : {}}>
-      <div className='scroller-number__cell'>{number}</div>
-      <div className='scroller-number__cell'>{lower}</div>
-    </div>
-  )
   return (
     <div className='scroller-number-container'>
-      {renderNumbers()}
+      <div className='scroller-number' style={isAnim ? animStyles : {}}>
+        <div className='scroller-number__cell'>{number}</div>
+        <div className='scroller-number__cell'>{lower}</div>
+      </div>
     </div>
   )
 }
